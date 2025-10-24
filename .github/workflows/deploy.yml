@@ -13,13 +13,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Upload to SFTP server
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+name: SFTP Deploy
+
+  uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
           server: ${{ secrets.SFTP_SERVER }}
           username: ${{ secrets.SFTP_USERNAME }}
           password: ${{ secrets.SFTP_PASSWORD }}
           protocol: ftps
           port: 22
-          local-dir: ./  # path to your local build folder
-          server-dir: /  # remote path on your server
+          local-dir: ./*  # path to your local build folder
+          server-dir: ./  # remote path on your server
