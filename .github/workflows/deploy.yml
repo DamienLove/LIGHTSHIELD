@@ -1,7 +1,15 @@
+name: Deploy Files
 on: [push]
-
+branches: 
+-master
+  workflow_dispatch:
+    inputs:
+      sync:
+        description: "File synchronization"
+        required: true
+        default: "delta"
 jobs:
-  deploy_job:
+  deploy_master:
     runs-on: ubuntu-latest
     name: Deploy with Password
     steps:
