@@ -5,16 +5,15 @@ jobs:
     runs-on: ubuntu-latest
     name: Deploy with Password
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
-      - name: Deploy with Password
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
-        with:
-          username: ${{ secrets.FTP_USERNAME }}
-          server: ${{ secrets.FTP_SERVER }}
-          port: '22'
-          local_path: '.*'
-          remote_path: '/var/www/app'
-          sftp_only: true
-          password: ${{ secrets.FTP_PASSWORD }}
+- name: "Checkout"
+  uses: actions/checkout@v4
+  with:
+    fetch-depth: 0
+- name: "Deploy"
+  uses: milanmk/actions-file-deployer@master
+  with:
+    remote-protocol: "sftp"
+    remote-host: ${{ secrets.FTP_SERVER }}
+    remote-user: ${{ secrets.FTP_USERNAME }}
+    ssh-private-key: ${{ secrets.FTP_PASSWORD }}
+    remote-path: "/"
