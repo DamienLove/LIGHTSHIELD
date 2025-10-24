@@ -1,26 +1,20 @@
-name: 🚀 Deploy via SFTP
-
-on:
-  push:
-    branches:
-      - main  # or your deployment branch
+on: [push]
 
 jobs:
-  deploy:
+  deploy_job:
     runs-on: ubuntu-latest
-
+    name: Deploy with Password
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+      - name: Checkout
+        uses: actions/checkout@v2
 
-name: SFTP Deploy
-
-  uses: wlixcc/SFTP-Deploy-Action@v1.2.6
+      - name: Deploy with Password
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
-          server: ${{ secrets.SFTP_SERVER }}
-          username: ${{ secrets.SFTP_USERNAME }}
-          password: ${{ secrets.SFTP_PASSWORD }}
-          protocol: ftps
-          port: 22
-          local-dir: ./*  # path to your local build folder
-          server-dir: ./  # remote path on your server
+          username: ${{ secrets.FTP_USERNAME }}
+          server: ${{ secrets.FTP_SERVER }}
+          port: '22'
+          local_path: '.*'
+          remote_path: '/var/www/app'
+          sftp_only: true
+          password: ${{ secrets.FTP_PASSWORD }}
